@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rect-animation</title>
+    <style>
+        body{
+            overflow:hidden;
+            width : 100%;
+            margin: 0;
+            padding: 0;
+        }
+        canvas {width:100%; height:100%;}
+    </style>
+</head>
+<body>
+    <canvas id="c"></canvas>
+    <script>
+
+        var Rect = function (ctx, x, y, w, h, speed) {
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            this.ctx = ctx;
+            this.speed = speed;
+        };
+
+        Rect.prototype = {
+            update : function (dt) {
+                this.y += this.speed * dt;
+            },
+            draw : function () {
+                this.ctx.beginPath();
+                this.ctx.fillStyle = "#FFFFFF";
+                this.ctx.fillRect(this.x, this.y, this.w, this.h);
+                this.ctx.closePath();
+            }
+        };
+
+        var width, height, rect1, rect2;
+        width = window.innerWidth;
+        height = window.innerHeight;
+
+        var canvas = document.getElementById("c");
+        var context = canvas.getContext("2d");
+        canvas.width = width;
+        canvas.height = height;
+
+        document.addEventListener("resize", onResize);
+
+        var getRgbRandom = function () {
+            return Math.ceil(Math.random() * 1000 / 4);
+        };
+
+        var onResize = function () {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        };
+
+        var init = function () {
+            rect1 = new Rect(context, canvas.width / 2 , 0, 100, 100, 5);
+            rect2 = new Rect(context, canvas.width / 1.5 , 0, 100, 100, 10);
+        };
+
+        var loop = function () {
+            var dt = performance.now() / 1000;
+            //var r = getRgbRandom();
+            //var g = getRgbRandom();
+            //var b = getRgbRandom();
+            //context.fillStyle = ["rgb(", (r), ",", (g), ",", (b), ")"].join('');
+            context.fillStyle = "#0c0000";
+
+            context.fillRect(0,0, canvas.width, canvas.height);
+            rect1.update(dt);
+            rect1.draw();
+
+            rect2.update(dt);
+            rect2.draw();
+            requestAnimationFrame(loop);
+        };
+
+
+
+
+        init();
+        loop();
+
+    </script>
+</body>
+</html>

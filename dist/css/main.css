@@ -280,3 +280,8 @@ textarea {
         page-break-after: avoid;
     }
 }
+    ul,
+    li,
+    ol {
+        list-style : none;
+    }
