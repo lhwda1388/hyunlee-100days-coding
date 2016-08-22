@@ -29,6 +29,9 @@
         Rect.prototype = {
             update : function (dt) {
                 this.y += this.speed * dt;
+                if (this.y >= canvas.height) {
+                    this.y = 0;
+                }
             },
             draw : function () {
                 this.ctx.beginPath();
@@ -61,12 +64,18 @@
         };
 
         var init = function () {
-            rect1 = new Rect(context, canvas.width / 2 , 0, 100, 100, 5);
-            rect2 = new Rect(context, canvas.width / 1.5 , 0, 100, 100, 10);
+            rect1 = new Rect(context, canvas.width / 2 , 0, 100, 100, 200);
+            rect2 = new Rect(context, canvas.width / 1.5 , 0, 100, 100, 400);
         };
-
+        var curTime = 0;
+        var lastTime = 0;
+        var dt = 0;
         var loop = function () {
-            var dt = performance.now() / 1000;
+            curTime = new Date().getTime();
+            if (lastTime != 0) {
+                dt = (curTime - lastTime) / 1000;
+            }
+            console.log(dt);
             //var r = getRgbRandom();
             //var g = getRgbRandom();
             //var b = getRgbRandom();
@@ -80,6 +89,7 @@
             rect2.update(dt);
             rect2.draw();
             requestAnimationFrame(loop);
+            lastTime = curTime;
         };
 
 

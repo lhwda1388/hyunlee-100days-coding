@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rotate planet</title>
+    <style>
+        body {
+            overflow: hidden;
+            margin : 0;
+            padding: 0;
+        }
+
+        canvas {
+            width : 100%;
+            height : 100%;
+        }
+    </style>
+</head>
+<body>
+<canvas id="cv"></canvas>
+
+<script>
+
+    var width , height;
+    width = window.innerWidth;
+    height = window.innerHeight;
+    var cv = document.getElementById('cv');
+    var ctx = cv.getContext('2d');
+    var sun, planet1, planet2, planet3, planet4, planet5;
+    var centerX, centerY;
+
+
+    var Planet = function (ctx, x, y, r, startEngle, endEngle, color) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        this.strEngle = startEngle;
+        this.endEngle = endEngle;
+        this.color = color;
+        this.ctx = ctx;
+    };
+
+    Planet.prototype = {
+        draw : function () {
+            this.ctx.beginPath();
+            this.ctx.fillStyle = this.color;
+            this.ctx.arc(this.x, this.y, this.r, this.strEngle, this.endEngle, false);
+            this.ctx.closePath();
+            this.ctx.fill();
+        }
+
+    };
+
+    var initSize = function () {
+        cv.width = width;
+        cv.height = height;
+        centerX = cv.width / 2;
+        centerY = cv.height / 2;
+    };
+
+    var Sun = function (ctx, x, y, r, startEngle, endEngle, color) {
+        Planet.call(this, ctx, x, y, r, startEngle, endEngle, color);
+    };
+
+    Sun.prototype = Object.create(Planet.prototype);
+
+    var etcPlanet = function (ctx, x, y, r, startEngle, endEngle, color, sort) {
+        Planet.call(this, ctx, x, y, r, startEngle, endEngle, color);
+        this.sort = sort;
+        this.angle = 0;
+        this.x = sun.x + sun.r * sort;
+    };
+
+    etcPlanet.prototype = Object.create(Planet.prototype);
+
+    etcPlanet.prototype = {
+        update : function (angle) {
+            this.x =  centerX + ( sun.r * this.sort ) * Math.cos(this.angle);
+            this.y =  centerY + ( sun.r * this.sort ) * Math.sin(this.angle);
+            this.angle += angle;
+
+        },
+        draw : function () {
+            this.ctx.beginPath();
+            this.ctx.strokeStyle = this.color;
+            this.ctx.arc(sun.x, sun.y, sun.r * this.sort, 0, 2 * Math.PI, false);
+            this.ctx.closePath();
+            this.ctx.stroke();
+            Planet.prototype.draw.call(this);
+
+        }
+    };
+
+
+
+    var init = function () {
+
+        sun = new Sun(ctx, centerX, centerY, 50, 0, 2 * Math.PI, "#FF5E00");
+        planet1 = new etcPlanet(ctx, centerX , centerY, 20, 0, 2 * Math.PI, "#FF0000", 2);
+        planet2 = new etcPlanet(ctx, centerX , centerY, 20, 0, 2 * Math.PI, "#FFE400", 3);
+        planet3 = new etcPlanet(ctx, centerX , centerY, 20, 0, 2 * Math.PI, "#47C83E", 4);
+        planet4 = new etcPlanet(ctx, centerX , centerY, 20, 0, 2 * Math.PI, "#5CD1E5", 5);
+        planet5 = new etcPlanet(ctx, centerX , centerY, 20, 0, 2 * Math.PI, "#D1B2FF", 6);
+    };
+
+    var planetDraw = function () {
+        ctx.fillStyle = "#0c0000";
+        ctx.fillRect(0,0, cv.width, cv.height);
+
+        sun.draw();
+        planet1.update(0.01);
+        planet1.draw();
+        planet2.update(0.02);
+        planet2.draw();
+        planet3.update(0.015);
+        planet3.draw();
+        planet4.update(0.03);
+        planet4.draw();
+        planet5.update(0.008);
+        planet5.draw();
+
+
+    };
+
+    var loop = function () {
+
+        planetDraw();
+        requestAnimationFrame(loop);
+    };
+
+    initSize();
+    init();
+    loop();
+
+    window.addEventListener('resize', initSize);
+
+</script>
+</body>
+</html>
