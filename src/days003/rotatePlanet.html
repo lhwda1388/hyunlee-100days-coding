@@ -8,6 +8,7 @@
             overflow: hidden;
             margin : 0;
             padding: 0;
+            background-color: #0c0000;
         }
 
         canvas {
@@ -115,9 +116,8 @@
     };
 
     var planetDraw = function () {
-        ctx.fillStyle = "#0c0000";
-        ctx.fillRect(0,0, cv.width, cv.height);
 
+        ctx.clearRect(0, 0, cv.width, cv.height);
         sun.draw();
         var rotateRate = 2 * Math.PI / 360;
 
