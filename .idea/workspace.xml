@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5815f80d-100d-41fe-a383-3cef0628ac41" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/days002/squashAndstrech2.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/days002/test.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/days003/rotatePlanet.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/days001/rect-animation.html" afterPath="$PROJECT_DIR$/src/days001/rect-animation.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/days003/rotatePlanet.html" afterPath="$PROJECT_DIR$/src/days003/rotatePlanet.html" />
     </list>
     <ignored path="hyunlee-100days-coding.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -73,21 +70,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="squashAndstrech.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="squashAndstrech.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/days002/squashAndstrech.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="114" column="21" selection-start-line="114" selection-start-column="21" selection-end-line="114" selection-end-column="21" />
+            <state relative-caret-position="620">
+              <caret line="131" column="0" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rotatePlanet.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="rotatePlanet.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/days003/rotatePlanet.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="574">
-              <caret line="134" column="48" selection-start-line="22" selection-start-column="0" selection-end-line="134" selection-end-column="48" />
+            <state relative-caret-position="412">
+              <caret line="125" column="39" selection-start-line="125" selection-start-column="39" selection-end-line="125" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -178,8 +175,8 @@
         <option value="$PROJECT_DIR$/src/days002/test.html" />
         <option value="$PROJECT_DIR$/src/days002/squashAndstrech.html" />
         <option value="$PROJECT_DIR$/src/days003/planetPlanet.html" />
-        <option value="$PROJECT_DIR$/src/days003/rotatePlanet.html" />
         <option value="$PROJECT_DIR$/src/days001/rect-animation.html" />
+        <option value="$PROJECT_DIR$/src/days003/rotatePlanet.html" />
       </list>
     </option>
   </component>
@@ -197,8 +194,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="81" />
-    <option name="y" value="64" />
+    <option name="x" value="74" />
+    <option name="y" value="4" />
     <option name="width" value="1723" />
     <option name="height" value="972" />
   </component>
@@ -414,7 +411,7 @@
       <workItem from="1471417405868" duration="18000" />
       <workItem from="1471423475069" duration="982000" />
       <workItem from="1471481267706" duration="11593000" />
-      <workItem from="1471825455223" duration="7654000" />
+      <workItem from="1471825455223" duration="10548000" />
     </task>
     <task id="LOCAL-00001" summary=" test">
       <created>1471493141055</created>
@@ -423,14 +420,21 @@
       <option name="project" value="LOCAL" />
       <updated>1471493141055</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary=" day003 commit&#10; day002 modify">
+      <created>1471833495109</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1471833495109</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34158000" />
+    <option name="totallyTimeSpent" value="37052000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="81" y="64" width="1723" height="972" extended-state="0" />
+    <frame x="74" y="4" width="1723" height="972" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -468,7 +472,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value=" test" />
-    <option name="LAST_COMMIT_MESSAGE" value=" test" />
+    <MESSAGE value=" day003 commit&#10; day002 modify" />
+    <option name="LAST_COMMIT_MESSAGE" value=" day003 commit&#10; day002 modify" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -802,14 +807,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/days002/squashAndstrech2.html" />
     <entry file="file://$PROJECT_DIR$/src/days002/test.html" />
-    <entry file="file://$PROJECT_DIR$/src/days003/rotatePlanet.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="134" column="48" selection-start-line="22" selection-start-column="0" selection-end-line="134" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/days001/rect-animation.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="236">
@@ -820,8 +817,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/days002/squashAndstrech.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="114" column="21" selection-start-line="114" selection-start-column="21" selection-end-line="114" selection-end-column="21" />
+        <state relative-caret-position="620">
+          <caret line="131" column="0" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/days003/rotatePlanet.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="125" column="39" selection-start-line="125" selection-start-column="39" selection-end-line="125" selection-end-column="39" />
           <folding />
         </state>
       </provider>

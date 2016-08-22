@@ -26,7 +26,7 @@
     height = window.innerHeight;
     var cv = document.getElementById('cv');
     var ctx = cv.getContext('2d');
-    var sun, planet1, planet2, planet3, planet4, planet5;
+    var sun, planet1, planet2, planet3, planet4, planet5, planet6;
     var centerX, centerY;
 
 
@@ -69,21 +69,24 @@
         this.sort = sort;
         this.angle = 0;
         this.x = sun.x + sun.r * sort;
+        this.rotateR = sun.r * this.sort;
     };
 
     etcPlanet.prototype = Object.create(Planet.prototype);
 
     etcPlanet.prototype = {
         update : function (angle) {
-            this.x =  centerX + ( sun.r * this.sort ) * Math.cos(this.angle);
-            this.y =  centerY + ( sun.r * this.sort ) * Math.sin(this.angle);
+
+            this.x =  centerX + ( this.rotateR ) * Math.cos(this.angle);
+            this.y =  centerY + ( this.rotateR ) * Math.sin(this.angle);
             this.angle += angle;
+            if (this.angle >= 2 * Math.PI) this.angle = 0;
 
         },
         draw : function () {
             this.ctx.beginPath();
             this.ctx.strokeStyle = this.color;
-            this.ctx.arc(sun.x, sun.y, sun.r * this.sort, 0, 2 * Math.PI, false);
+            this.ctx.arc(sun.x, sun.y, this.rotateR, 0, 2 * Math.PI, false);
             this.ctx.closePath();
             this.ctx.stroke();
             Planet.prototype.draw.call(this);
@@ -91,7 +94,14 @@
         }
     };
 
-
+    // 호의길이 구하는 함수
+    var arcLength = function (r, degree) {
+        return 2 * Math.PI * r * (degree / 360);
+    };
+    // 각도를 라디안으로 변환
+    var degreeToRadian = function (degree) {
+      return degree * Math.PI / 180;
+    };
 
     var init = function () {
 
@@ -101,6 +111,7 @@
         planet3 = new etcPlanet(ctx, centerX , centerY, 20, 0, 2 * Math.PI, "#47C83E", 4);
         planet4 = new etcPlanet(ctx, centerX , centerY, 20, 0, 2 * Math.PI, "#5CD1E5", 5);
         planet5 = new etcPlanet(ctx, centerX , centerY, 20, 0, 2 * Math.PI, "#D1B2FF", 6);
+        planet6 = new etcPlanet(ctx, centerX , centerY, 20, 0, 2 * Math.PI, "#FFA7A7", 7);
     };
 
     var planetDraw = function () {
@@ -108,16 +119,21 @@
         ctx.fillRect(0,0, cv.width, cv.height);
 
         sun.draw();
-        planet1.update(0.01);
+        var rotateRate = 2 * Math.PI / 360;
+
+        planet1.update(rotateRate);
         planet1.draw();
-        planet2.update(0.02);
+        planet2.update(rotateRate * 2);
         planet2.draw();
-        planet3.update(0.015);
+        planet3.update(rotateRate);
         planet3.draw();
-        planet4.update(0.03);
+        planet4.update(rotateRate * 0.5);
         planet4.draw();
-        planet5.update(0.008);
+        planet5.update(rotateRate * 0.3);
         planet5.draw();
+        planet6.update(rotateRate * 0.4);
+        planet6.draw();
+
 
 
     };
