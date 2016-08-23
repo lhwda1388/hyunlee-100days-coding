@@ -37,8 +37,8 @@
         this.a = a;
         this.angle = 0;
         this.angleSign = 1;
-        this.maxAngle = 0.04;
-        this.minAngle = -0.04;
+        this.maxAngle = 0.08;
+        this.minAngle = -0.08;
     };
 
     Wave.prototype = {
@@ -144,19 +144,19 @@
         backgroundDraw();
         sunDraw();
         var rotateRate = Math.PI / 180;
-        wave1.update(rotateRate * 0.012);
+        wave1.update(rotateRate * 0.014);
         wave1.draw();
-        wave2.update(rotateRate * 0.014);
+        wave2.update(rotateRate * 0.016);
         wave2.draw();
-        wave3.update(rotateRate * 0.016);
+        wave3.update(rotateRate * 0.018);
         wave3.draw();
-        wave4.update(rotateRate * 0.018);
+        wave4.update(rotateRate * 0.020);
         wave4.draw();
-        wave5.update(rotateRate * 0.020);
+        wave5.update(rotateRate * 0.022);
         wave5.draw();
-        wave6.update(rotateRate * 0.022);
+        wave6.update(rotateRate * 0.024);
         wave6.draw();
-        wave7.update(rotateRate * 0.024);
+        wave7.update(rotateRate * 0.026);
         wave7.draw();
 
 
