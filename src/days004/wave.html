@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wave</title>
+    <style>
+
+        body {
+            margin : 0;
+            padding : 0;
+
+        }
+        canvas {
+            width : 100%;
+            height : 100%;
+        }
+    </style>
+</head>
+<body>
+<canvas id='c'></canvas>
+
+<script>
+    var width, height;
+    width = window.innerWidth;
+    height = window.innerHeight;
+    var cv = document.getElementById('c');
+    var ctx = cv.getContext('2d');
+    var ctnX, ctnY;
+    var wave1, wave2, wave3, wave4, wave5, wave6, wave7;
+
+    var Wave = function (ctx, h , r, g, b, a) {
+        this.ctx = ctx;
+        this.h = h;
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.a = a;
+        this.angle = 0;
+        this.angleSign = 1;
+        this.maxAngle = 0.04;
+        this.minAngle = -0.04;
+    };
+
+    Wave.prototype = {
+        update : function (angle) {
+
+            if (this.angle >= this.maxAngle) {
+                this.angleSign = switchAngleSign(this.angleSign);
+            }else if(this.angle <= this.minAngle) {
+                this.angleSign = switchAngleSign(this.angleSign);
+            }
+
+            this.angle += this.angleSign * angle;
+        },
+        draw : function () {
+            var c = this.ctx;
+            c.save();
+            c.translate(ctnX, ctnY);
+            c.rotate(this.angle);
+            c.translate(-ctnX, -ctnY);
+            c.beginPath();
+            c.strokeStyle = 'rgba('+ this.r +', '+  this.g +', '+ this.b +', '+ this.a +')';
+            c.fillStyle = 'rgba('+ this.r +', '+  this.g +', '+ this.b +', '+ this.a +')';
+            c.fillRect( -1 * (cv.width * 2), this.h, cv.width * 3.2, cv.height + 200);
+            c.closePath();
+            c.restore();
+        }
+    };
+
+
+    var switchAngleSign = function (angleSign) {
+        return angleSign < 0 ? 1 : -1;
+    };
+
+    var initSize = function () {
+        cv.width = width;
+        cv.height = height;
+        ctnX = width / 2;
+        ctnY = height / 2;
+
+    };
+
+    var init = function () {
+        wave1 = new Wave(ctx, ctnY, 152, 193, 237, 0.4);
+        wave2 = new Wave(ctx, ctnY + 40, 134, 175, 219, 0.4);
+        wave3 = new Wave(ctx, ctnY + 80, 107, 149, 194, 0.4);
+        wave4 = new Wave(ctx, ctnY + 120, 94, 136, 181, 0.4);
+        wave5 = new Wave(ctx, ctnY + 160, 80, 121, 166, 0.4);
+        wave6 = new Wave(ctx, ctnY + 200, 69, 109, 153, 0.4);
+        wave7 = new Wave(ctx, ctnY + 240, 56, 96, 138, 0.4);
+    };
+
+    var sunDraw = function () {
+        var r = 100;
+        ctx.beginPath();
+        ctx.save();
+
+        var gradient = ctx.createRadialGradient(ctnX, ctnY, 30, ctnX, ctnY, 90);
+        gradient.addColorStop(0, '#FFFFFF');
+        gradient.addColorStop(1, '#F98435');
+
+        ctx.fillStyle = gradient;
+        ctx.arc(ctnX, ctnY, r, 0, 2 * Math.PI, false);
+
+        ctx.closePath();
+        ctx.fill();
+
+        lightSun(r);
+
+        ctx.restore();
+
+
+    };
+
+    var lightSun = function (r) {
+        ctx.beginPath();
+        gradient = ctx.createRadialGradient(ctnX, ctnY, 30, ctnX, ctnY, 122);
+        gradient.addColorStop(0, '#FFFFFF');
+        gradient.addColorStop(1, '#F98435');
+
+        ctx.fillStyle = gradient;
+
+        ctx.translate(ctnX, ctnY);
+        ctx.rotate(wave1.angle);
+        ctx.translate(-ctnX, -ctnY);
+
+        ctx.arc(ctnX, ctnY, r, 0,  Math.PI, false);
+        ctx.fill();
+    };
+
+    var backgroundDraw = function () {
+        ctx.clearRect(0, 0, cv.width, cv.height);
+
+        var gradient = ctx.createLinearGradient(0, 0, 0, cv.height / 2);
+        gradient.addColorStop(0,"#EB7833");
+        gradient.addColorStop(1,"#D0818C");
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, cv.width, cv.height);
+    };
+
+    var draw = function (dt) {
+
+
+        backgroundDraw();
+        sunDraw();
+        var rotateRate = Math.PI / 180;
+        wave1.update(rotateRate * 0.012);
+        wave1.draw();
+        wave2.update(rotateRate * 0.014);
+        wave2.draw();
+        wave3.update(rotateRate * 0.016);
+        wave3.draw();
+        wave4.update(rotateRate * 0.018);
+        wave4.draw();
+        wave5.update(rotateRate * 0.020);
+        wave5.draw();
+        wave6.update(rotateRate * 0.022);
+        wave6.draw();
+        wave7.update(rotateRate * 0.024);
+        wave7.draw();
+
+
+    };
+
+    var loop = function () {
+        draw();
+        requestAnimationFrame(loop);
+    };
+
+    initSize();
+    init();
+    loop();
+
+</script>
+</body>
+</html>
