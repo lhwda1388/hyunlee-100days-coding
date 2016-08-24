@@ -3,6 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Traffic Light</title>
+    <style>
+
+        body {
+            margin : 0;
+            padding : 0;
+
+        }
+        canvas {
+            width : 100%;
+            height : 100%;
+        }
+    </style>
 </head>
 <body>
 <canvas id='c'></canvas>
@@ -24,13 +36,17 @@
 
 
     var TrafficLight = function (ctx, x, y, w, h, bColor) {
+        var r = w > h ? w / 3.3 : h / 3.3;
+        var lrr = ( (w + (r) ) / 3  );
+        //lrr = lrr > h ? h : lrr;
+
         this.ctx = ctx;
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-        this.r = w / 3.3;
-        this.lrr = ( (this.w + (this.r) ) / 3  );
+        this.r = r;
+        this.lrr = lrr;
         this.bColor = bColor;
 
     };
@@ -46,13 +62,14 @@
 
             ctx.moveTo(x, y);
             ctx.lineTo(x + w, y);
+            //ctx.lineTo(x + w, y + h);
             ctx.bezierCurveTo(x + w + r, y, x + w + r, y + h, x + w, y + h);
             ctx.lineTo(x, y + h);
             ctx.bezierCurveTo(x - r, y + h, x - r, y, x, y);
             ctx.lineWidth = 5;
-
-            ctx.fill();
-            ctx.stroke();
+            ctx.closePath();
+            //ctx.fill();
+            //ctx.stroke();
             ctx.restore();
         }
 
@@ -78,13 +95,6 @@
         update : function (h, s, ryg) {
 
             this.ryg = ryg;
-
-
-            console.log(rightCicleInfo.brightList[rightCicleInfo.curBirightIdx]);
-
-
-            console.log(this.ryg + ", " + this.remainTime);
-
             this.hslH = h;
             this.hslS = s;
             this.hslL = this.curBright
@@ -176,14 +186,47 @@
     };
 
     var init = function () {
-        trafficLight = new TrafficLight(ctx, ctnX - (cv.width/4/2) , ctnY - (cv.height/4/2), cv.width/4, cv.height/ 4, '#3E3E40');
+        trafficLight = new TrafficLight(ctx, ctnX - (cv.width/4/2) , ctnY - (cv.height/4/2), cv.width/4, cv.height/ 4, '#DFE9F5');
         red = new LightCircle(ctx, trafficLight.x, trafficLight.y, trafficLight.w, trafficLight.h, trafficLight.bColor, 10);
         yellow = new LightCircle(ctx, trafficLight.x, trafficLight.y, trafficLight.w, trafficLight.h, trafficLight.bColor, 6);
         green = new LightCircle(ctx, trafficLight.x, trafficLight.y, trafficLight.w, trafficLight.h, trafficLight.bColor, 12);
     };
 
+    var sunDraw = function () {
+        var r = cv.width / 10;
+        ctx.beginPath();
+        ctx.save();
+
+        var gradient = ctx.createRadialGradient(r, r, r / 100 * 30, r, r, r / 100  * 90);
+        gradient.addColorStop(0, '#FFFFFF');
+        gradient.addColorStop(1, '#FAE100');
+
+        ctx.fillStyle = gradient;
+        ctx.arc(r, r , r, 0, 2 * Math.PI, false);
+
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.restore();
+
+
+    };
+
+    var backgroundDraw = function () {
+        ctx.clearRect(0, 0, cv.width, cv.height);
+
+        var gradient = ctx.createLinearGradient(0, 0, 0, cv.height);
+        gradient.addColorStop(0,"#2CA5E0");
+        gradient.addColorStop(1,"#FFFFFF");
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, cv.width, cv.height);
+    };
+
+
     var draw = function () {
         ctx.clearRect(0, 0, cv.width, cv.height);
+        backgroundDraw();
+        sunDraw();
         trafficLight.draw();
 
         red.update(360, 100, rightCicleInfo.brightList[0]);
