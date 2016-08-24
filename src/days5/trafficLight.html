@@ -15,6 +15,12 @@
     var ctx = cv.getContext('2d');
     var ctnX, ctnY;
     var trafficLight;
+    var red, yellow, green;
+    var rightCicleInfo = {
+        bright : [10, 50],
+        brightList : ['r', 'y', 'g'],
+        curBirightIdx : 0
+    };
 
 
     var TrafficLight = function (ctx, x, y, w, h, bColor) {
@@ -26,25 +32,12 @@
         this.r = w / 3.3;
         this.lrr = ( (this.w + (this.r) ) / 3  );
         this.bColor = bColor;
-        this.hslH = 0;
-        this.hslS = 0;
-        this.hslL = 0;
-        this.delay = 0;
-        this.rX = getLightX(this.lrr, this.x, this.r, 1);
-        this.yX = getLightX(this.lrr, this.x, this.r, 2);
-        this.gX = getLightX(this.lrr, this.x, this.r, 3);
 
     };
 
     TrafficLight.prototype = {
-        update : function (h, s, l) {
-            console.log(h);
-            this.hslH = h;
-            this.hslS = s;
-            this.hslL = l;
 
-        },
-        roundRect : function () {
+        draw : function () {
             var ctx = this.ctx;
             var x = this.x, y = this.y, w = this.w, h = this.h, r = this.r , bColor = this.bColor;
             ctx.save();
@@ -61,21 +54,88 @@
             ctx.fill();
             ctx.stroke();
             ctx.restore();
+        }
+
+    };
+
+    var LightCircle = function (ctx, x, y, w, h, bColor, delay) {
+        TrafficLight.call(this, ctx, x, y, w, h, bColor);
+        this.hslH = 0;
+        this.hslS = 0;
+        this.hslL = 0;
+        this.delay = delay;
+        this.remainTime = delay;
+        this.rX = getLightX(this.lrr, this.x, this.r, 1);
+        this.yX = getLightX(this.lrr, this.x, this.r, 2);
+        this.gX = getLightX(this.lrr, this.x, this.r, 3);
+        this.curBright = 10;
+        this.ryg = 'r';
+    };
+
+    LightCircle.prototype = Object.create(TrafficLight.prototype);
+
+    LightCircle.prototype = {
+        update : function (h, s, ryg) {
+
+            this.ryg = ryg;
+
+
+            console.log(rightCicleInfo.brightList[rightCicleInfo.curBirightIdx]);
+
+
+            console.log(this.ryg + ", " + this.remainTime);
+
+            this.hslH = h;
+            this.hslS = s;
+            this.hslL = this.curBright
+
+            if (this.ryg == rightCicleInfo.brightList[rightCicleInfo.curBirightIdx]) {
+
+                this.remainTime = this.remainTime - 1;
+
+                if (this.remainTime > 0 && this.remainTime <= 5) {
+                    this.curBright = this.curBright == rightCicleInfo.bright[0] ? rightCicleInfo.bright[1] : rightCicleInfo.bright[0];
+                } else {
+                    this.curBright = rightCicleInfo.bright[1];
+
+                    if (this.remainTime <= 0) {
+
+                        if (rightCicleInfo.brightList.length - 1 == rightCicleInfo.curBirightIdx) {
+                            rightCicleInfo.curBirightIdx = 0;
+                            this.remainTime = this.delay;
+                            this.curBright = rightCicleInfo.bright[0];
+                        } else {
+                            rightCicleInfo.curBirightIdx = rightCicleInfo.curBirightIdx + 1;
+                            this.remainTime = this.delay;
+                            this.curBright = rightCicleInfo.bright[0];
+                        }
+
+                    }
+
+                }
+
+            } else {
+
+                this.curBright = rightCicleInfo.bright[0];
+
+            }
+
+
         },
-        light : function (ryg, lColor) {
+        draw : function () {
             var ctx = this.ctx;
             var lr = this.lrr / 2;
             var y = this.y + ( (this.h - (lr * 2)) / 2 );
             var x;
 
-            switch (ryg) {
-                case 'R' :
+            switch (this.ryg) {
+                case 'r' :
                     x = this.rX;
                     break;
-                case 'Y' :
+                case 'y' :
                     x = this.yX;
                     break;
-                case 'G' :
+                case 'g' :
                     x = this.gX;
                     break;
                 default :
@@ -86,7 +146,7 @@
 
             ctx.save();
             ctx.beginPath();
-            ctx.rect(x, y, lr * 2, lr * 2)
+            ctx.rect(x, y, lr * 2, lr * 2);
             ctx.lineWidth = 4;
             ctx.closePath();
             ctx.stroke();
@@ -99,22 +159,12 @@
             ctx.stroke();
 
             ctx.restore();
-        },
-        draw : function () {
-            var ctx = this.ctx;
-            this.update(360, 100, 10);
-            this.light("R");
-
-            this.update(54, 100, 10);
-            this.light("Y");
-
-            this.update(118, 100, 10);
-            this.light("G");
         }
     };
 
+
     var getLightX = function (lrr, x, r, sort) {
-        return ( (lrr * sort) - lrr ) + (x - lrr / 3);;
+        return ( (lrr * sort) - lrr ) + (x - lrr / 3);
     };
 
     var initSize = function () {
@@ -126,22 +176,34 @@
     };
 
     var init = function () {
-        red = new TrafficLight(ctx, ctnX - (cv.width/4/2) , ctnY - (cv.height/4/2), cv.width/4, cv.height/ 4, '#3E3E40');
+        trafficLight = new TrafficLight(ctx, ctnX - (cv.width/4/2) , ctnY - (cv.height/4/2), cv.width/4, cv.height/ 4, '#3E3E40');
+        red = new LightCircle(ctx, trafficLight.x, trafficLight.y, trafficLight.w, trafficLight.h, trafficLight.bColor, 10);
+        yellow = new LightCircle(ctx, trafficLight.x, trafficLight.y, trafficLight.w, trafficLight.h, trafficLight.bColor, 6);
+        green = new LightCircle(ctx, trafficLight.x, trafficLight.y, trafficLight.w, trafficLight.h, trafficLight.bColor, 12);
     };
 
     var draw = function () {
         ctx.clearRect(0, 0, cv.width, cv.height);
         trafficLight.draw();
+
+        red.update(360, 100, rightCicleInfo.brightList[0]);
+        red.draw();
+
+        yellow.update(54, 100, rightCicleInfo.brightList[1]);
+        yellow.draw();
+
+        green.update(118, 100, rightCicleInfo.brightList[2]);
+        green.draw();
     };
 
     var loop = function () {
         draw();
-        //requestAnimationFrame(loop);
     };
 
     initSize();
     init();
     loop();
+    setInterval(loop, 1000);
 
     window.addEventListener('resize', initSize);
 </script>
