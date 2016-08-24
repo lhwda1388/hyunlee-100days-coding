@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Traffic Light</title>
+</head>
+<body>
+<canvas id='c'></canvas>
+
+<script>
+    var width, height;
+    width = window.innerWidth;
+    height = window.innerHeight;
+    var cv = document.getElementById('c');
+    var ctx = cv.getContext('2d');
+    var ctnX, ctnY;
+    var trafficLight;
+
+
+    var TrafficLight = function (ctx, x, y, w, h, bColor) {
+        this.ctx = ctx;
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.r = w / 3.3;
+        this.lrr = ( (this.w + (this.r) ) / 3  );
+        this.bColor = bColor;
+        this.hslH = 0;
+        this.hslS = 0;
+        this.hslL = 0;
+        this.delay = 0;
+        this.rX = getLightX(this.lrr, this.x, this.r, 1);
+        this.yX = getLightX(this.lrr, this.x, this.r, 2);
+        this.gX = getLightX(this.lrr, this.x, this.r, 3);
+
+    };
+
+    TrafficLight.prototype = {
+        update : function (h, s, l) {
+            console.log(h);
+            this.hslH = h;
+            this.hslS = s;
+            this.hslL = l;
+
+        },
+        roundRect : function () {
+            var ctx = this.ctx;
+            var x = this.x, y = this.y, w = this.w, h = this.h, r = this.r , bColor = this.bColor;
+            ctx.save();
+            ctx.beginPath();
+            ctx.fillStyle = bColor;
+
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + w, y);
+            ctx.bezierCurveTo(x + w + r, y, x + w + r, y + h, x + w, y + h);
+            ctx.lineTo(x, y + h);
+            ctx.bezierCurveTo(x - r, y + h, x - r, y, x, y);
+            ctx.lineWidth = 5;
+
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+        },
+        light : function (ryg, lColor) {
+            var ctx = this.ctx;
+            var lr = this.lrr / 2;
+            var y = this.y + ( (this.h - (lr * 2)) / 2 );
+            var x;
+
+            switch (ryg) {
+                case 'R' :
+                    x = this.rX;
+                    break;
+                case 'Y' :
+                    x = this.yX;
+                    break;
+                case 'G' :
+                    x = this.gX;
+                    break;
+                default :
+                    x = this.x;
+                    break;
+
+            }
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(x, y, lr * 2, lr * 2)
+            ctx.lineWidth = 4;
+            ctx.closePath();
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.fillStyle = 'hsl('+ this.hslH +', '+ this.hslS +'%, '+ this.hslL +'% )';
+            ctx.arc(x + lr, y + lr, lr, 0 , 2 * Math.PI, false);
+            ctx.fill();
+            ctx.closePath();
+            ctx.stroke();
+
+            ctx.restore();
+        },
+        draw : function () {
+            var ctx = this.ctx;
+            this.update(360, 100, 10);
+            this.light("R");
+
+            this.update(54, 100, 10);
+            this.light("Y");
+
+            this.update(118, 100, 10);
+            this.light("G");
+        }
+    };
+
+    var getLightX = function (lrr, x, r, sort) {
+        return ( (lrr * sort) - lrr ) + (x - lrr / 3);;
+    };
+
+    var initSize = function () {
+        cv.width = width;
+        cv.height = height;
+        ctnX = width / 2;
+        ctnY = height / 2;
+
+    };
+
+    var init = function () {
+        red = new TrafficLight(ctx, ctnX - (cv.width/4/2) , ctnY - (cv.height/4/2), cv.width/4, cv.height/ 4, '#3E3E40');
+    };
+
+    var draw = function () {
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        trafficLight.draw();
+    };
+
+    var loop = function () {
+        draw();
+        //requestAnimationFrame(loop);
+    };
+
+    initSize();
+    init();
+    loop();
+
+    window.addEventListener('resize', initSize);
+</script>
+</body>
+</html>
