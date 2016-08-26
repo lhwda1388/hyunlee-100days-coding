@@ -123,15 +123,14 @@
         ctx.fillStyle = "#333";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        //rect1.update(dt);
-        //rect1.draw();
-        TweenLite.to( rect1, 1.5, { width:5000, height:70 } );
+        rect1.update(dt);
+        rect1.draw();
 
-        //rect2.update(dt);
-        //rect2.draw();
+        rect2.update(dt);
+        rect2.draw();
 
-        //rect3.update(dt);
-        //rect3.draw();
+        rect3.update(dt);
+        rect3.draw();
 
 
         requestAnimationFrame(loop);
