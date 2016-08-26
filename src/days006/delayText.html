@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>delay text</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<script>
+    let textInfo = {
+        list : ['h', 'e', 'l', 'l', 'o', ' ', 'h', 'u', 't', 't', '!', '!'],
+        idx : 0,
+        tempText : ""
+    };
+    let width, height;
+    width = window.innerWidth;
+    height = window.innerHeight;
+    let cv = document.getElementById('c');
+    let ctx = cv.getContext('2d');
+    let ctnY, ctnX;
+    let delayText;
+
+    let DelayText = function (ctx, x, y, size, font) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.font = font;
+        this.ctx = ctx;
+    };
+
+    DelayText.prototype  = {
+        update : function () {
+            textInfo.idx ++;
+            if (textInfo.idx > textInfo.list.length) textInfo.idx = 0;
+        },
+        draw : function () {
+            let ctx = this.ctx;
+
+            let gradient = ctx.createLinearGradient(0, 0, this.size * ( textInfo.idx + 1 ), 0);
+            gradient.addColorStop(0, '#FFFFFF');
+            gradient.addColorStop(0.5, '#FFFF20');
+            gradient.addColorStop(1.0, '#FF2020');
+            ctx.fillStyle = gradient;
+
+            ctx.beginPath();
+
+            ctx.font = this.size + 'px ' + this.font;
+            ctx.textAlign = 'center';
+            ctx.lineWidth = '3';
+            textInfo.tempText = textInfo.list.slice(0, textInfo.idx + 1).join('');
+            ctx.fillText(textInfo.tempText, this.x, this.y);
+            ctx.strokeText(textInfo.tempText, this.x, this.y);
+
+            ctx.closePath();
+
+            ctx.beginPath();
+
+        }
+    };
+
+    let initSize = () => {
+        cv.width = width;
+        cv.height = height;
+        ctnX = width / 2;
+        ctnY = height / 2;
+    };
+
+    let init = () => {
+        delayText = new DelayText(ctx, ctnX, ctnY, 200, 'Verdana');
+    };
+
+    let draw = () => {
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        delayText.draw();
+        delayText.update();
+
+    };
+
+    let loop = () => {
+        console.log('start App');
+        draw();
+    };
+
+    initSize();
+    init();
+    setInterval(loop, 1000);
+
+    window.addEventListener('resize', initSize);
+</script>
+</body>
+</html>
