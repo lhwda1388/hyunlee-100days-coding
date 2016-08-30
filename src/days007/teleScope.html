@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>teleScope</title>
+    <style>
+        body {
+            margin : 0;
+            padding : 0;
+        }
+        canvas {
+            width : 100%;
+            height : 100%;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="c"></canvas>
+
+<script>
+let App = ((window) => {
+    let width, height, ctnX, ctnY, teleScopeR;
+    let starMax = 100;
+    let cv = document.getElementById('c');
+    let ctx = cv.getContext('2d');
+    let starOffset = [];
+
+
+    let initSize = () => {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        cv.width = width;
+        cv.height = height;
+        ctnX = width / 2;
+        ctnY = height / 2;
+        teleScopeR = width > height ? width / 4 : height / 4;
+    };
+
+    let teleScope = (e) => {
+
+        try {
+            this.x = e.clientX;
+            this.y = e.clientY;
+        } catch (error) {
+            this.x = ctnX;
+            this.y = ctnY;
+        }
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, teleScopeR, 0, 2 * Math.PI, false);
+        ctx.fill();
+        ctx.fillStyle = "#000";
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        ctx.fillRect(0, 0, cv.width, cv.height);
+        ctx.clip();
+
+    };
+
+    let drawBackground = () => {
+        ctx.fillStyle = '#20265C';
+        ctx.fillRect(0, 0, cv.width, cv.height);
+        drawStar();
+        drawMoon();
+    };
+
+    let drawStar = () => {
+        for (let i = 0; i < starMax; i++) {
+            ctx.save();
+            starDetail(i);
+            ctx.restore();
+
+        }
+    };
+
+    let starDetail = (idx) => {
+        ctx.fillStyle = "#FFF";
+        ctx.strokeStyle = "#FFF";
+        ctx.save();
+        let x , y;
+
+
+        if (starOffset.length < starMax) {
+            x = cv.width * Math.random();
+            y = cv.height * Math.random();
+            starOffset.push({'x': x, 'y' : y});
+        } else {
+            x = starOffset[idx].x;
+            y = starOffset[idx].y;
+        }
+
+        ctx.translate(x, y);
+
+        let r = Math.random() * 5;
+        ctx.beginPath();
+        ctx.moveTo(r, 0);
+        for(let i = 0; i < 9; i++) {
+            ctx.rotate(2 * Math.PI / 5 );
+            if (i % 2 == 0) {
+                ctx.lineTo((r/0.5)*0.2, 0);
+            } else {
+                ctx.lineTo(r, 0);
+            }
+
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+    };
+
+
+    let drawMoon = () => {
+        ctx.save();
+        let r = cv.width > cv.height ? cv.width / 10 : cv.height / 10;
+        ctx.fillStyle = '#FAE100';
+        ctx.beginPath();
+        ctx.arc(r, r, r, 2 * Math.PI, false);
+        ctx.fill();
+        ctx.restore();
+    };
+
+    let start = (e) => {
+        ctx.save();
+        teleScope(e);
+        drawBackground();
+        ctx.restore();
+    };
+
+    return {
+        run : () => {
+            initSize();
+            start();
+
+            window.addEventListener('mousemove', start);
+            window.addEventListener('resize', initSize);
+        }
+    };
+
+})(window);
+
+App.run();
+
+
+
+</script>
+</body>
+</html>
