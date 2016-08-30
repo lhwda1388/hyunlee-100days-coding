@@ -37,17 +37,17 @@
         };
 
         let teleScope = (e) => {
-
+            let x, y;
             try {
-                this.x = e.clientX;
-                this.y = e.clientY;
+                x = e.clientX;
+                y = e.clientY;
             } catch (error) {
-                this.x = ctnX;
-                this.y = ctnY;
+                x = ctnX;
+                y = ctnY;
             }
 
             ctx.beginPath();
-            ctx.arc(this.x, this.y, teleScopeR, 0, 2 * Math.PI, false);
+            ctx.arc(x, y, teleScopeR, 0, 2 * Math.PI, false);
             ctx.fill();
             ctx.fillStyle = "#000";
             ctx.clearRect(0, 0, cv.width, cv.height);
@@ -139,6 +139,7 @@
     })(window);
 
     App.run();
+
 
 
 
