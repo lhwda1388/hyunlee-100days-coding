@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rocket</title>
+    <style>
+        body {
+            margin : 0;
+            padding : 0;
+            background-color: #DFFBFD;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto;
+            width: 400px;
+            height: 100%;
+        }
+
+    </style>
+</head>
+<body>
+<canvas id="c" ></canvas>
+
+<script>
+    let width, height, ctnX, ctnY;
+    let cv = document.getElementById('c');
+    let ctx = cv.getContext('2d');
+    let rocket;
+    let count = 10;
+
+    let Rocket = function (ctx, speed) {
+        this.x = ctnX;
+        this.y = cv.height;
+        this.ctx = ctx;
+        this.speed = speed;
+    };
+
+    Rocket.prototype = {
+        update : function (dt) {
+            console.log("this.y: " + this.y);
+            console.log("dt: " +dt);
+            console.log("this.speed: " +this.speed);
+            this.y -= dt * this.speed;
+        },
+        draw : function () {
+            let ctx = this.ctx;
+            let x = cv.width / 3;
+            let y = this.y - cv.width / 10;
+            let cpX = x - cv.width/15;
+            let cpX2 = x * 2 + cv.width/15;
+
+            ctx.save();
+
+            //불
+            if (count == 0) {
+                ctx.beginPath();
+                ctx.fillStyle = "#E56A6A";
+                ctx.moveTo(ctnX - 50, y);
+                ctx.quadraticCurveTo(ctnX - 80 , y + 80, ctnX, y + 110);
+                ctx.quadraticCurveTo(ctnX + 80, y + 80, ctnX + 50, y);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.fillStyle = "#E5E56A";
+                ctx.moveTo(ctnX - 20, y);
+                ctx.quadraticCurveTo(ctnX - 50 , y + 50, ctnX, y + 80);
+                ctx.quadraticCurveTo(ctnX + 50, y + 50, ctnX + 20, y);
+                ctx.closePath();
+                ctx.fill();
+
+            } else {
+                ctx.beginPath();
+                ctx.fillStyle = 'black';
+                ctx.strokeStyle = 'black';
+                ctx.font = '20em bold Verdana';
+                ctx.textAlign = 'center';
+                ctx.lineWidth = '3';
+                ctx.fillText(count, ctnX, y - 330);
+            }
+
+            //날개 왼쪽
+            let lr = x;
+
+            ctx.fillStyle = '#4852A8';
+            ctx.strokeStyle = '#4852A8';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = 10;
+
+            ctx.beginPath();
+            ctx.moveTo(ctnX - lr, y);
+            ctx.arcTo(ctnX - lr, y - lr, ctnX, y - lr, lr );
+            ctx.lineTo(ctnX, y);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            //날개 오른쪽
+            ctx.beginPath();
+            ctx.moveTo(ctnX + lr, y);
+            ctx.arcTo(ctnX + lr, y - lr, ctnX, y - lr, lr );
+            ctx.lineTo(ctnX, y);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 밑받침
+            ctx.beginPath();
+            ctx.fillStyle = "#554842";
+            ctx.moveTo(x, y);
+            ctx.bezierCurveTo(cpX, y + 20, cpX2, y + 20 , x * 2, y);
+            ctx.fill();
+
+
+            //몸통1
+            ctx.beginPath();
+            ctx.fillStyle = '#FFFFFF';
+            ctx.moveTo(x, y);
+            ctx.bezierCurveTo(cpX, y - 330  , cpX2, y - 330 , x * 2, y);
+            ctx.fill();
+
+            //몸통2
+            ctx.beginPath();
+            ctx.fillStyle = '#DADADA';
+            ctx.moveTo(x, y);
+            ctx.bezierCurveTo(cpX, y - 320  , cpX2, y - 320 , x * 2, y);
+            ctx.fill();
+
+            //창틀
+            let or = (x / 3) * 2 / 1.8;
+            ctx.beginPath();
+            ctx.fillStyle = '#B4B2B2';
+            ctx.arc(ctnX, y - 150 , or, 0, 2 * Math.PI, false);
+            ctx.fill();
+
+            //유리창
+            let ir = (x / 3) * 2 / 2.2;
+            ctx.beginPath();
+            ctx.fillStyle = '#1DDADA';
+            ctx.arc(ctnX, y - 150 , ir, 0, 2 * Math.PI, false);
+            ctx.fill();
+
+
+            ctx.restore();
+
+
+        }
+    };
+
+    let initSize = () => {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        cv.width = width / 4;
+        cv.height = height;
+        ctnX = cv.width / 2;
+        ctnY = cv.height / 2;
+    };
+
+    let init = () => {
+        rocket = new Rocket(ctx, 0.05);
+    };
+
+    let drawBackground = () => {
+
+    };
+
+    let draw = (dt) => {
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        drawBackground();
+        if(count == 0) {
+            rocket.update(dt);
+        }
+        rocket.draw();
+    };
+
+    let countFunc = () => {
+        if (count > 0) count -= 1;
+    };
+
+    let strTime = 0;
+    let endTime = 0;
+    let dt = 0;
+    let countInterval;
+    let loop = () => {
+        strTime = new Date().getTime();
+        if (endTime != 0) {
+            dt = strTime - endTime;
+        }
+        if (count == 0) {
+            clearInterval(countInterval);
+        }
+        draw(dt);
+        requestAnimationFrame(loop);
+        endTime = strTime;
+    };
+
+
+    initSize();
+    init();
+    loop();
+    countInterval = setInterval(countFunc, 1000);
+
+    window.addEventListener('resize', initSize);
+
+</script>
+</body>
+</html>
