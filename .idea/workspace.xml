@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5815f80d-100d-41fe-a383-3cef0628ac41" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/days008/rocket.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/days008/rocket.html" afterPath="$PROJECT_DIR$/src/days008/rocket.html" />
     </list>
     <ignored path="hyunlee-100days-coding.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,7 +49,7 @@
       <file leaf-file-name="delayText.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/days006/delayText.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
+            <state relative-caret-position="1264">
               <caret line="79" column="64" selection-start-line="79" selection-start-column="57" selection-end-line="79" selection-end-column="64" />
               <folding />
             </state>
@@ -69,7 +69,7 @@
       <file leaf-file-name="teleScope.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/days007/teleScope.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
+            <state relative-caret-position="1440">
               <caret line="90" column="25" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="25" />
               <folding />
             </state>
@@ -113,8 +113,8 @@
       <file leaf-file-name="rocket.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/days008/rocket.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="648">
-              <caret line="207" column="0" selection-start-line="207" selection-start-column="0" selection-end-line="207" selection-end-column="0" />
+            <state relative-caret-position="731">
+              <caret line="219" column="48" selection-start-line="35" selection-start-column="4" selection-end-line="219" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -201,9 +201,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="214" />
-    <option name="width" value="1449" />
-    <option name="height" value="966" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -231,7 +232,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -424,6 +424,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -540,7 +541,8 @@
       <workItem from="1472515715455" duration="15001000" />
       <workItem from="1472539890994" duration="238000" />
       <workItem from="1472547385474" duration="406000" />
-      <workItem from="1472609878799" duration="15702000" />
+      <workItem from="1472609878799" duration="15724000" />
+      <workItem from="1472626414990" duration="792000" />
     </task>
     <task id="LOCAL-00001" summary=" test">
       <created>1471493141055</created>
@@ -640,18 +642,25 @@
       <option name="project" value="LOCAL" />
       <updated>1472540024511</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="day008">
+      <created>1472625957185</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1472625957185</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114594000" />
+    <option name="totallyTimeSpent" value="115408000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="214" y="0" width="1449" height="966" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.45010468" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.45" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3960739" sideWeight="0.50416666" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -690,7 +699,8 @@
     <MESSAGE value="day005" />
     <MESSAGE value="day006" />
     <MESSAGE value="day007" />
-    <option name="LAST_COMMIT_MESSAGE" value="day007" />
+    <MESSAGE value="day008" />
+    <option name="LAST_COMMIT_MESSAGE" value="day008" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -911,7 +921,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7504">
           <caret line="469" column="0" selection-start-line="469" selection-start-column="0" selection-end-line="469" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -919,7 +928,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -927,7 +935,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -935,7 +942,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1920">
           <caret line="120" column="9" selection-start-line="120" selection-start-column="9" selection-end-line="120" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -991,7 +997,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/days007/teleScope.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
+        <state relative-caret-position="1440">
           <caret line="90" column="25" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="25" />
           <folding />
         </state>
@@ -999,7 +1005,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/days006/delayText.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
+        <state relative-caret-position="1264">
           <caret line="79" column="64" selection-start-line="79" selection-start-column="57" selection-end-line="79" selection-end-column="64" />
           <folding />
         </state>
@@ -1007,8 +1013,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/days008/rocket.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="207" column="0" selection-start-line="207" selection-start-column="0" selection-end-line="207" selection-end-column="0" />
+        <state relative-caret-position="731">
+          <caret line="219" column="48" selection-start-line="35" selection-start-column="4" selection-end-line="219" selection-end-column="48" />
           <folding />
         </state>
       </provider>

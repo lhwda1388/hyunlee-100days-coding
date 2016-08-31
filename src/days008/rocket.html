@@ -15,10 +15,21 @@
             width: 400px;
             height: 100%;
         }
+        #restart {
+            background-color: #4CAF50; /* Green */
+            color: #FFFFFF;
+            border: 1px solid #FFFFFF;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
 
     </style>
 </head>
 <body>
+<button id="restart">Restart</button>
 <canvas id="c" ></canvas>
 
 <script>
@@ -26,7 +37,9 @@
     let cv = document.getElementById('c');
     let ctx = cv.getContext('2d');
     let rocket;
-    let count = 10;
+    let maxCount = 10;
+    let count = maxCount;
+    let countInterval;
 
     let Rocket = function (ctx, speed) {
         this.x = ctnX;
@@ -37,9 +50,6 @@
 
     Rocket.prototype = {
         update : function (dt) {
-            console.log("this.y: " + this.y);
-            console.log("dt: " +dt);
-            console.log("this.speed: " +this.speed);
             this.y -= dt * this.speed;
         },
         draw : function () {
@@ -73,7 +83,7 @@
                 ctx.beginPath();
                 ctx.fillStyle = 'black';
                 ctx.strokeStyle = 'black';
-                ctx.font = '20em bold Verdana';
+                ctx.font = '15em bold Verdana';
                 ctx.textAlign = 'center';
                 ctx.lineWidth = '3';
                 ctx.fillText(count, ctnX, y - 330);
@@ -158,6 +168,12 @@
 
     let init = () => {
         rocket = new Rocket(ctx, 0.05);
+        document.getElementById('restart').addEventListener('click', function () {
+            rocket.y = cv.height;
+            count = maxCount;
+            clearInterval(countInterval);
+            countInterval = setInterval(countFunc, 1000);
+        });
     };
 
     let drawBackground = () => {
@@ -180,7 +196,6 @@
     let strTime = 0;
     let endTime = 0;
     let dt = 0;
-    let countInterval;
     let loop = () => {
         strTime = new Date().getTime();
         if (endTime != 0) {
@@ -199,6 +214,8 @@
     init();
     loop();
     countInterval = setInterval(countFunc, 1000);
+
+
 
     window.addEventListener('resize', initSize);
 
